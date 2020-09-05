@@ -1,0 +1,81 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: static/img
+public_folder: /img
+
+collections:
+  - name: articles
+    label: Articles
+    folder: content/articles
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: Title
+        name: title
+        required: true
+        widget: string
+        hint: A cool title for the article
+
+      - label: Description
+        name: description
+        required: true
+        widget: string
+        hint: A short description, also used for meta fields.
+
+      - label: Category
+        name: category
+        required: true
+        widget: relation
+        hint: Select a category
+        collection: categories
+        displayFields: ["title"]
+        searchFields: ["title"]
+        valueField: "{{slug}}"
+        multiple: false
+        optionsLength: 20
+
+      - label: Cover Image
+        name: cover
+        required: false
+        widget: image
+        hint: Add an optional cover image
+        allow_multiple: false
+
+      - label: Show Cover Image
+        name: showCover
+        required: false
+        widget: boolean
+        hint: Check if cover image should be shown on web page
+
+      - label: Published Date
+        name: publishedAt
+        required: true
+        widget: datetime
+        dateFormat: DD.MM.YYYY
+        timeFormat: HH:mm
+
+      - label: Updated Date
+        name: updatedAt
+        required: true
+        widget: datetime
+        dateFormat: DD.MM.YYYY
+        timeFormat: HH:mm
+
+      - label: Content
+        name: body
+        required: true
+        widget: markdown
+        buttons: []
+
+  - name: categories
+    label: Categories
+    folder: content/categories
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: Title
+        name: title
+        required: true
+        widget: string
